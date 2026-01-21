@@ -1,61 +1,122 @@
 # Stay Ahead – Customer Churn Prediction System
 
-An AI-powered churn prediction system for SaaS products, developed as a **Capstone Project** at **Samsung Innovation Campus**.
+This repository contains a complete machine learning pipeline for customer churn prediction, developed as part of the Samsung Innovation Campus.
+
+The goal of the project is to predict which customers are likely to churn by experimenting with range of models (Traditional and Deep models), understand the factors influencing churn, and support proactive business decisions such as targeted retention campaigns.
+
+---
 
 ## 📌 Project Overview
-Customer churn is a major challenge for SaaS businesses, where retaining customers is more cost-effective than acquiring new ones.
-This project aims to predict customer churn using machine learning techniques to help businesses take proactive retention actions.
+Customer churn is a major challenge for subscription-based services, as retaining existing customers is significantly more cost-effective than acquiring new ones.  
+This project builds and evaluates multiple machine learning models to classify customers into **churn vs non-churn**, with a strong focus on **maximizing recall** to reduce missed churn cases.
+
+---
 
 ## 🎯 Objectives
-- Analyze customer behavior and identify churn patterns  
-- Build and evaluate multiple machine learning models  
-- Handle imbalanced datasets using appropriate metrics  
-- Deliver a practical end-to-end AI solution  
+- Analyze customer behavior and identify key churn drivers  
+- Build and compare multiple machine learning models  
+- Handle class imbalance using appropriate evaluation strategies  
+- Deliver a practical, business-oriented AI solution  
 
-## 🧠 Models Used
-- Logistic Regression  
-- Random Forest  
-- XGBoost (Final selected model)  
-- NODE  
-- TabNet  
+---
 
-The final model (**XGBoost**) was selected based on **Recall and F1-score**, prioritizing the detection of high-risk customers.
+## 🧠 Models Implemented
+- Logistic Regression (Baseline)
+- Random Forest
+- **XGBoost (Final Selected Model)**
+- TabNet
+- NODE (Neural Oblivious Decision Ensembles)
+
+The final model (**XGBoost**) was selected based on its superior balance between **Recall and F1-score**, making it more effective for churn-sensitive applications.
+
+---
 
 ## 📊 Dataset
-- **Source:** Telco Customer Churn Dataset (Kaggle – IBM Watson Analytics)  
-- **Size:** ~7,000 customer records  
-- **Target Variable:** Customer churn (Yes / No)
+- **Source:** We use the Telco Customer Churn dataset available on Kaggle: https://www.kaggle.com/datasets/blastchar/telco-customer-churn The dataset includes 7,043 customers.
+- **Features include:**
+  - Demographics (gender, partner, dependents)
+  - Services (internet, streaming, security, tech support)
+  - Contracts (contract type, payment method)
+  - Financials (monthly and total charges)
+- **Target Variable:** Churn (Yes / No)
 
-> Dataset is not included in this repository due to licensing restrictions.
 
-## 🛠️ Workflow
-1. Data preprocessing and cleaning  
-2. Exploratory Data Analysis (EDA)  
-3. Feature engineering  
-4. Model training and evaluation  
-5. Handling class imbalance  
-6. Model selection  
+---
 
-## 📈 Evaluation Metrics
-- Recall  
-- Precision  
-- F1-score  
-- ROC-AUC  
+## 🛠️ Preprocessing
+- Removal of invalid `TotalCharges` values  
+- Handling missing data  
+- One-Hot Encoding for categorical features  
+- Standardization of numerical features  
+- Stratified train/test split  
+- Class imbalance handling using:
+  - Class weighting
+  - Threshold tuning  
 
-## 👥 Team
-This project was developed by a 6-member team:
-- Mohammed Alabdulmuhsin  
-- Wassayef Alkherb  
-- Abdulrahman Alkhaldi  
-- Mira Alfuraih  
-- Hisham Alnabulsiyyah  
-- Abdulaziz Aamri  
+---
 
-## 🧑‍💻 My Contribution
-- Exploratory Data Analysis (EDA)  
-- Data preprocessing and feature engineering  
-- Model evaluation and comparison  
-- Contribution to final model selection  
+## 🔬 Methodology
+1. **Logistic Regression (Baseline)**  
+   - Simple and interpretable baseline model  
+
+2. **Random Forest**  
+   - Captures non-linear feature interactions  
+   - Tuned using Randomized Search  
+
+3. **XGBoost (Final Model)**  
+   - Gradient boosting algorithm  
+   - Tuned using **Bayesian Optimization (Optuna)**  
+   - Achieved the strongest recall and ROC-AUC  
+
+4. **Deep Tabular Models**
+   - **TabNet**
+     - Sequential attention-based architecture  
+     - Interpretable feature masks  
+   - **NODE**
+     - Tree-inspired neural architecture  
+     - Tuned using Optuna  
+     - Strong performance but higher computational cost  
+
+---
+
+## 📈 Evaluation Strategy
+- 5-Fold Stratified Cross-Validation  
+- **Primary Metric:** Recall  
+- Additional metrics:
+  - Precision
+  - F1-score
+  - Accuracy
+  - ROC-AUC  
+
+Threshold tuning was applied to further improve churn detection in the minority class.
+
+---
+
+## 🚀 Results Summary
+- **XGBoost achieved ~80% recall** on churn customers  
+- Strong ROC-AUC of ~0.84  
+- Best trade-off between sensitivity and robustness  
+- Deep models (TabNet, NODE) showed competitive results but required careful tuning  
+
+Overall, XGBoost consistently delivered the most reliable performance.
+
+---
+
+
+## 🖥️ System Deployment
+- **Backend:** FastAPI (REST API)
+  - `/predict` for churn probability scoring  
+  - `/high-risk-users` for dashboard integration  
+- **Frontend:** HTML, CSS, JavaScript  
+- Real-time churn prediction dashboard  
+- English & Arabic language support  
+
+---
+
+## 📎 Demo
+🎥 Demo Video: https://youtu.be/i7YS-S6PKHw
+
+---
 
 ## 📌 Notes
-This project was completed as part of the Artificial Intelligence program at Samsung Innovation Campus.
+This project was completed for educational purposes as part of the **Artificial Intelligence Program at Samsung Innovation Campus**.
